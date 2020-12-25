@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import styles from './ProdRowItemStyle';
+import styles from './CartRowItemStyle';
 import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import {add,  people, minus,plus,close} from 'src/assets'
 import {TextView} from 'src/Component';

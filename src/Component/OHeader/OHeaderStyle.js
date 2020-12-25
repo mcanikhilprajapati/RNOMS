@@ -1,21 +1,18 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { color,font } from "src/Theme";
+import {Dimensions, StyleSheet} from "react-native";
 import {PixcelWidth} from "src/Utils";
-const wp = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     headerCont: {
-        //height: 90,
         backgroundColor: '#F12761'
     },
     titleTxt:{
         color: '#fff', fontSize: 26, fontWeight: 'bold'
     },
     menuImg:{
-        height: PixcelWidth(12),
-        width: PixcelWidth(18),
+        height: PixcelWidth(25),
+        width: PixcelWidth(25),
         color: '#fff',
-        marginLeft:PixcelWidth(8)
+        margin:PixcelWidth(8)
     },
     searchImg:{
         marginRight: 8,

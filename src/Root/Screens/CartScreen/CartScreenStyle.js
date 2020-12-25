@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         padding:15,
     },
     titleTxt:{
-        fontSize:PixcelWidth(18),
+        alignSelf:'center',
+        fontSize:PixcelWidth(14),
     },
     couponCont:{
         flexDirection:'row',

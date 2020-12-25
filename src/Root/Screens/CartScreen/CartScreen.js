@@ -5,7 +5,7 @@ import { Container, Content, Tab, Footer, ScrollableTab } from 'native-base';
 import styles from './CartScreenStyle';
 import {add,  people, minus,plus,shopping} from 'src/assets'
 import {TextView,OHeader} from 'src/Component';
-import RowItem from "./ProdRowItem";
+import RowItem from "./CartRowItem";
 const data = [{id:1},{id:2},{id:3}]
 
 export class CartScreen extends Component {
