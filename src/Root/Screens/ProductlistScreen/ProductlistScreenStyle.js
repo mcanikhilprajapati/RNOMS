@@ -6,7 +6,7 @@ const wh = Dimensions.get('window').height;
 import {PixcelWidth} from "src/Utils";
 const styles = StyleSheet.create({
     imgCont:{
-        height:wp/1.7,
+        height:wp/2,
         width:'100%',
         backgroundColor:'grey'
     },
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     textStyle: {
         color: "#313A43",
         fontSize: 16,
-        fontFamily: "Roboto",
+        // fontFamily: "Roboto",
         fontWeight: "normal",
         fontStyle: "normal",
         lineHeight: 19,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     activeTextStyle: {
         color: '#000',
         fontSize: PixcelWidth(16),
-        fontFamily: "Roboto",
+        // fontFamily: "Roboto",
         fontWeight: "bold",
         fontStyle: "normal",
         //lineHeight: 19,

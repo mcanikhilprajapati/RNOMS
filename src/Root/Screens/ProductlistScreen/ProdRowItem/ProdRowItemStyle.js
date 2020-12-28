@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         //flexWrap: 'wrap',
         color: '#3D3D3D',
         fontWeight: '500',
-        fontFamily: font.robotoMedium
+        // fontFamily: font.robotoMedium
     },
     proQtyTxt: {
         //fontFamily: font.poppinsMedium,

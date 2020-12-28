@@ -6,13 +6,15 @@ import {Container, ScrollableTab, Tab, Tabs} from 'native-base';
 import {shopping} from "src/assets";
 import {OHeader} from 'src/Component';
 import RowItem from "./ProdRowItem";
-const data = [{id:1},{id:2},{id:3}]
+
+const data = [{id: 1}, {id: 2}, {id: 3}]
+
 export class ProductlistScreen extends Component {
     render() {
         return (
 
             <Container>
-                <OHeader titleCenter={"Products"}/>
+                <OHeader titleCenter={"Products"} navigation={this.props.navigation}/>
                 <View style={styles.imgCont}>
                     <Image source={shopping} style={styles.titleImg}/>
                 </View>

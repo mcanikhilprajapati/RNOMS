@@ -59,12 +59,12 @@ class Containers extends Component {
 
                 </NavigationContainer>
 
-                {/*{this.props.errorMessage != "" &&*/}
-                {/*  <Text*/}
-                {/*    style={this.props.isError ? { backgroundColor: 'red', padding: 15, color: 'white', bottom: 0, left: 0, right: 0, position: 'absolute', zIndex: 99 } :*/}
-                {/*      { backgroundColor: '#15d400', padding: 15, color: 'white', bottom: 0, left: 0, right: 0, position: 'absolute', zIndex: 99 }}>*/}
-                {/*    {this.props.errorMessage}</Text>*/}
-                {/*}*/}
+                {this.props.errorMessage != "" &&
+                  <Text
+                    style={this.props.isError ? { backgroundColor: 'red', padding: 15, color: 'white', bottom: 0, left: 0, right: 0, position: 'absolute', zIndex: 99 } :
+                      { backgroundColor: '#15d400', padding: 15, color: 'white', bottom: 0, left: 0, right: 0, position: 'absolute', zIndex: 99 }}>
+                    {this.props.errorMessage}</Text>
+                }
 
             </View>
 

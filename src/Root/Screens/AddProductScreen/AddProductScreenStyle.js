@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#50A2EC',
-        fontFamily: 'Arial',
+        // fontFamily: 'Arial',
         fontWeight: 'bold',
         fontSize: 36,
         marginBottom: 6,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     inputBox: {
         fontSize: PixcelWidth(16),
-        fontFamily: font.robotoRegular,
+        // fontFamily: font.robotoRegular,
         borderColor: '#32394320'
     },
     pickerStyle: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     browseBtnTxt: {
         color: '#fff',
         fontSize: 16,
-        fontFamily: font.robotoBold,
+        // fontFamily: font.robotoBold,
         textAlign: 'center',
         margin: 10,
     },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     btnText: {
         color: '#fff',
         fontSize: 16,
-        fontFamily: font.robotoBold,
+        // fontFamily: font.robotoBold,
         textAlign: 'center',
         marginVertical: 12,
     }

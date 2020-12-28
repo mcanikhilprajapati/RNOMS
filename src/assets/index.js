@@ -8,9 +8,10 @@ import minus from './minus.png'
 import plus from './plus.png'
 import shopping from './shopping.jpg'
 import close from './close.png'
+import cart from './cart.png'
 
 export {
-
+    cart,
    people,
     arrowdown,arrowback,
     menu,add,

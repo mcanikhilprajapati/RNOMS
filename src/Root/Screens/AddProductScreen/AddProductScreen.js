@@ -1,75 +1,72 @@
-import React, { Component, useState } from 'react';
+import React, {Component} from 'react';
 import styles from './AddProductScreenStyle';
-import { View, Text, Image, Picker, TextInput, Button, TouchableOpacity } from 'react-native';
-import {arrowdown,radioChecked,radioUnchecked,arrowback} from 'src/assets'
-import {Header, Icon, CheckBox, Input} from "react-native-elements";
-import {Container,Content} from 'native-base'
-import {TextView,OHeader} from 'src/Component';
-// import {Icon} from 'react-native-vector-icons/FontAwesome';
-
-
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Input} from "react-native-elements";
+import {Container, Content} from 'native-base'
+import {OHeader} from 'src/Component';
+import {Picker } from 'native-base';
+import {toast} from 'src/store/global'
+import {connect} from 'react-redux';
 class AddProductScreen extends Component {
 
     render() {
         return (
             <Container>
-
-            <View style={styles.container}>
                 <OHeader
-                    //isMenu={true}
-                    //isSearch={true}
                     titleCenter={"Add Product"}
+                    navigation={this.props.navigation}
                 />
 
-                <Content  showsHorizontalScrollIndicator={false}
-                          showsVerticalScrollIndicator={false}>
-                <View style={styles.innerContainer}>
-                    <Input
-                        placeholder='Product Name'
-                        inputContainerStyle={[styles.inputBox,{marginTop:10}]}
-                    />
-                    <Input
-                        placeholder='Small Description'
-                        inputContainerStyle={styles.inputBox}
-                    />
-                    <Input
-                        placeholder='Original Price'
-                        inputContainerStyle={styles.inputBox}
-                    />
-                    <Input
-                        placeholder='Discounted Price'
-                        inputContainerStyle={styles.inputBox}
-                    />
 
-                    <View style={styles.imgCont}>
-                        <Image  style={styles.prodImg} />
-                        <TouchableOpacity style={styles.browseBtn}>
-                            <Text style={styles.browseBtnTxt}>Browse</Text>
+                <Content showsHorizontalScrollIndicator={false}
+                         showsVerticalScrollIndicator={false}>
+                    <View style={styles.innerContainer}>
+                        <Input
+                            placeholder='Product Name'
+                            inputContainerStyle={[styles.inputBox, {marginTop: 10}]}
+                        />
+                        <Input
+                            placeholder='Small Description'
+                            inputContainerStyle={styles.inputBox}
+                        />
+                        <Input
+                            placeholder='Original Price'
+                            inputContainerStyle={styles.inputBox}
+                        />
+                        <Input
+                            placeholder='Discounted Price'
+                            inputContainerStyle={styles.inputBox}
+                        />
+
+                        <View style={styles.imgCont}>
+                            <Image style={styles.prodImg}/>
+                            <TouchableOpacity style={styles.browseBtn}>
+                                <Text style={styles.browseBtnTxt}>Browse</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.pickerStyle}>
+                            <Picker
+                                mode="dropdown"
+                                placeholder={"select"}
+                                style={styles.pickerTxt}
+                                itemStyle={styles.pickerTxt}
+                                // selectedValue={this.state.selected}
+                                // onValueChange={this.onValueChange.bind(this)}
+                            >
+                                <Picker.Item label="Category1"/>
+                                <Picker.Item label="Category2"/>
+                                <Picker.Item label="Category3"/>
+                                <Picker.Item label="Category"/>
+                            </Picker>
+                        </View>
+
+                        <TouchableOpacity style={styles.button}
+                                          onPress={() => this.props.toast(false,"New Product Added")}
+                        >
+                            <Text style={styles.btnText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.pickerStyle}>
-                        <Picker
-                            //mode="dropdown"
-                            style={styles.pickerTxt}
-                            itemStyle={styles.pickerTxt}
-                            // selectedValue={this.state.selected}
-                            // onValueChange={this.onValueChange.bind(this)}
-                        >
-                            <Picker.Item label="Category1"  />
-                            <Picker.Item label="Category2"  />
-                            <Picker.Item label="Category3"  />
-                            <Picker.Item label="Category"  />
-                        </Picker>
-                    </View>
-
-                    <TouchableOpacity style={styles.button}
-                                      onPress={()=> this.props.navigation.navigate("ProductlistScreen")}
-                    >
-                        <Text style={styles.btnText}>Submit</Text>
-                    </TouchableOpacity>
-                </View>
                 </Content>
-            </View>
 
 
             </Container>
@@ -79,4 +76,18 @@ class AddProductScreen extends Component {
 
 
 
-export default AddProductScreen;
+const mapActionCreators = {
+    toast
+};
+
+const mapStateToProps = state => {
+    return {
+
+    };
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapActionCreators,
+)(AddProductScreen);

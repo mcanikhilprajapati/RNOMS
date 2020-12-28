@@ -25,8 +25,7 @@ export class CartScreen extends Component {
         return (
             <Container>
                 <OHeader
-                    //isMenu={true}
-                    //isSearch={true}
+                    navigation={this.props.navigation}
                     titleCenter={"Cart"}
                 />
                 <Content style={styles.container}

@@ -3,14 +3,8 @@ import * as types from './actionTypes';
 const initialState = {
   loading: false,
   isInternetConnected: true,
-  cartlistLength: 0,
-  wishlistLength: 0,
   errorMessage: '',
   isError: false,
-  isopenDrawer: false,
-  cartList: [],
-  wishList: [],
-  Login: [],
 };
 
 const global = (state = initialState, action) => {
