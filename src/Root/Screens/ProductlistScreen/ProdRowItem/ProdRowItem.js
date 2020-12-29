@@ -12,7 +12,7 @@ const RowItem = props => {
 
             style={styles.prodCont}>
             <Image style={styles.imgCont}
-                   source={people}
+                   source={props.item.image}
                    resizeMode={'stretch'}/>
             <View style={styles.prodDetails}>
                 <TextView style={styles.proTitleTxt}>{props.item.pname}</TextView>

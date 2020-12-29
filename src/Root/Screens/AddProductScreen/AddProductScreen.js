@@ -6,6 +6,7 @@ import {Container, Content, Picker, Footer} from 'native-base';
 import {OHeader} from 'src/Component';
 import {toast, addProduct} from 'src/store/global';
 import {connect} from 'react-redux';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 class AddProductScreen extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class AddProductScreen extends Component {
             desc: '',
             oprice: null,
             dprice: null,
-            qty:null
+            qty: null,
+            image:null
         };
     }
 
@@ -27,7 +29,7 @@ class AddProductScreen extends Component {
     }
 
     onSubmit() {
-        const {pname, desc, oprice, dprice, category,qty} = this.state;
+        const {pname, desc, oprice, dprice, category, qty,image} = this.state;
         if (pname == '') {
             this.props.toast(true, 'Please Type Product Name');
             return;
@@ -47,18 +49,19 @@ class AddProductScreen extends Component {
         if (category == null) {
             this.props.toast(true, 'Please Select Category');
             return;
-        }if (qty == null) {
+        }
+        if (qty == null) {
             this.props.toast(true, 'Please Select Qty');
             return;
         }
 
         let product = {
-            pname, desc, oprice, dprice, category,qty
+            pname, desc, oprice, dprice, category, qty,image
         };
 
         this.props.addProduct(product);
         this.props.toast(false, 'Product Added');
-       // this.reset();
+        // this.reset();
     }
 
     reset() {
@@ -72,7 +75,7 @@ class AddProductScreen extends Component {
     }
 
     render() {
-        const {pname, desc, oprice, dprice,qty} = this.state;
+        const {pname, desc, oprice, dprice, qty,image} = this.state;
         return (
             <Container>
                 <OHeader
@@ -86,8 +89,19 @@ class AddProductScreen extends Component {
                          showsVerticalScrollIndicator={false}>
 
                     <View style={styles.imgCont}>
-                        <Image style={styles.prodImg}/>
-                        <TouchableOpacity style={styles.browseBtn}>
+                        <Image style={styles.prodImg} source={image}/>
+                        <TouchableOpacity
+                            onPress={() => {
+                                launchImageLibrary({
+                                    mediaType: 'photo',
+                                    includeBase64: false,
+                                    maxHeight: 200,
+                                    maxWidth: 200,
+                                }, (image) => {
+                                    this.setState({image})
+                                });
+                            }}
+                            style={styles.browseBtn}>
                             <Text style={styles.browseBtnTxt}>Browse</Text>
                         </TouchableOpacity>
                     </View>
@@ -119,13 +133,13 @@ class AddProductScreen extends Component {
                         placeholder='Discounted Price'
                         inputContainerStyle={styles.inputBox}
                     /><Input
-                        returnKeyType={'next'}
-                        keyboardType="numeric"
-                        value={qty}
-                        onChangeText={value => this.setState({qty: value})}
-                        placeholder='qty'
-                        inputContainerStyle={styles.inputBox}
-                    />
+                    returnKeyType={'next'}
+                    keyboardType="numeric"
+                    value={qty}
+                    onChangeText={value => this.setState({qty: value})}
+                    placeholder='qty'
+                    inputContainerStyle={styles.inputBox}
+                />
 
 
                     <View style={styles.pickerStyle}>
