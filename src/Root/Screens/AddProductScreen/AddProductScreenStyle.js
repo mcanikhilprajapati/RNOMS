@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {PixcelWidth} from "src/Utils";
+import {PixcelWidth} from 'src/Utils';
 import {font} from 'src/Theme';
 
 const styles = StyleSheet.create({
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignContent: 'center',
         margin: 'auto',
-        backgroundColor: '#FCFCFC'
+        backgroundColor: '#FCFCFC',
     },
     innerContainer: {
         padding: 15,
@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
         width: 70,
         height: 2.5,
         backgroundColor: '#50A2EC',
-        marginBottom: 30
+        marginBottom: 30,
     },
     inputBox: {
         fontSize: PixcelWidth(16),
         // fontFamily: font.robotoRegular,
-        borderColor: '#32394320'
+        borderColor: '#32394320',
     },
     pickerStyle: {
         marginLeft: 10,
@@ -45,20 +45,18 @@ const styles = StyleSheet.create({
         fontSize: PixcelWidth(16),
     },
     imgCont: {
-        marginTop: PixcelWidth(10),
         alignItems: 'center',
     },
     prodImg: {
         height: PixcelWidth(150),
         backgroundColor: 'grey',
-        borderRadius: 8,
-        width: PixcelWidth(250),
+        width: '100%',
     },
     browseBtn: {
         marginTop: PixcelWidth(15),
         paddingHorizontal: 10,
         borderRadius: 5,
-        backgroundColor: "#F12761"
+        backgroundColor: '#F12761',
     },
     browseBtnTxt: {
         color: '#fff',
@@ -68,10 +66,10 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     button: {
-        marginTop: PixcelWidth(40),
-        marginHorizontal: 10,
-        borderRadius: 20,
-        backgroundColor: "#332228"
+        margin:5,
+        width: 300,
+        borderRadius: 10,
+        backgroundColor: '#332228',
     },
     btnText: {
         color: '#fff',
@@ -79,6 +77,6 @@ const styles = StyleSheet.create({
         // fontFamily: font.robotoBold,
         textAlign: 'center',
         marginVertical: 12,
-    }
+    },
 });
 export default styles;

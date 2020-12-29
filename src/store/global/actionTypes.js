@@ -2,19 +2,12 @@ const TAG = 'GLOB_'
 export const API_LOADING_START = TAG + 'API_LOADING_START';
 export const API_LOADING_STOP = TAG + 'API_LOADING_STOP';
 export const IS_INTERNET_CONNECTED = TAG + 'IS_INTERNET_CONNECTED';
-export const API_SUCCESS_BED_REQ = TAG + 'API_SUCCESS_BED_REQ';
-export const API_SUCCESS_DESH_REQ = TAG + 'API_SUCCESS_DESH_REQ';
 export const ON_ERROR_RECEIVED = TAG + 'ON_ERROR_RECEIVED';
-export const API_WING_LIST = TAG + 'API_WING_LIST';
-export const TOGGLE_DRAWER = TAG + 'TOGGLE_DRAWER';
 export const ADDTO_CART = TAG + 'addtoCart';
-export const ADDTO_WISHLIST = TAG + 'addtowishlist';
 export const INCREMENT = TAG + 'qtyincrement';
 export const DECREMENT = TAG + 'qtydecrement';
-export const REMOVE_WISHLIST_ITEM = TAG + 'REMOVE_WISHLIST_ITEM';
 export const REMOVE_CART_ITEM = TAG + 'REMOVE_CART_ITEM';
 export const RESET_CART = TAG + 'RESET_CART';
-export const RESET_WISHLIST = TAG + 'RESET_WISHLIST';
-export const HOME_CART = TAG + 'HOME_CART';
-export const HOME_WISHLIST = TAG + 'HOME_WISHLIST';
+export const NEW_PRODUCT = TAG + 'NEW_PRODUCT';
+
 

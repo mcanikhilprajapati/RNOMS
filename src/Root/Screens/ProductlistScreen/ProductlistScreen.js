@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
 import {FlatList, Image, View} from 'react-native';
 
-import styles from './ProductlistScreenStyle'
+import styles from './ProductlistScreenStyle';
 import {Container, ScrollableTab, Tab, Tabs} from 'native-base';
-import {shopping} from "src/assets";
+import {shopping} from 'src/assets';
 import {OHeader} from 'src/Component';
-import RowItem from "./ProdRowItem";
+import RowItem from './ProdRowItem';
+import {connect} from 'react-redux';
+import _ from 'lodash';
+import {addItemtoCart, toast} from 'src/store/global';
 
-const data = [{id: 1}, {id: 2}, {id: 3}]
+class ProductlistScreen extends Component {
 
-export class ProductlistScreen extends Component {
     render() {
+        const {products} = this.props;
         return (
 
             <Container>
-                <OHeader titleCenter={"Products"} navigation={this.props.navigation}/>
+                <OHeader titleCenter={'Products'} navigation={this.props.navigation}/>
                 <View style={styles.imgCont}>
                     <Image source={shopping} style={styles.titleImg}/>
                 </View>
@@ -24,76 +27,60 @@ export class ProductlistScreen extends Component {
                     tabContainerStyle={{elevation: 0}}
                     renderTabBar={() => <ScrollableTab style={{borderWidth: 0}}/>}
                 >
-                    <Tab
-                        heading="Boots T-Shirt"
-                        tabStyle={styles.tabStyle}
-                        activeTabStyle={styles.activeTabStyle}
-                        activeTextStyle={styles.activeTextStyle}
-                        textStyle={styles.textStyle}
-                    >
-                        <FlatList
-                            style={{paddingVertical: 15, backgroundColor: '#EAECEC'}}
-                            data={data}
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this.FlatListItemSeparator}
-                            renderItem={({item, index}) => (
-                                <RowItem onSelect={() => {
-                                    this.props.navigation.navigate("CartScreen")
-                                }}/>
-                            )}
+                    {
+                        products.map((data) => {
+                            return (
+                                <Tab
+                                    heading={data.category}
+                                    tabStyle={styles.tabStyle}
+                                    activeTabStyle={styles.activeTabStyle}
+                                    activeTextStyle={styles.activeTextStyle}
+                                    textStyle={styles.textStyle}
+                                >
+                                    <FlatList
+                                        style={{paddingVertical: 15, backgroundColor: '#EAECEC'}}
+                                        data={data.products}
+                                        showsHorizontalScrollIndicator={false}
+                                        showsVerticalScrollIndicator={false}
+                                        ItemSeparatorComponent={this.FlatListItemSeparator}
+                                        renderItem={({item, index}) => (
+                                            <RowItem
+                                                item={item}
+                                                onSelect={(data) => {
+                                                    this.props.addItemtoCart(data);
+                                                    this.props.toast(false, 'Added to cart');
+                                                }}/>
+                                        )}
 
-                        />
-                    </Tab>
-                    <Tab
-                        heading="Sunglasses"
-                        tabStyle={styles.tabStyle}
-                        activeTabStyle={styles.activeTabStyle}
-                        activeTextStyle={styles.activeTextStyle}
-                        textStyle={styles.textStyle}
-                    >
-                        <FlatList
-                            style={{paddingVertical: 15, backgroundColor: '#EAECEC'}}
-                            data={data}
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this.FlatListItemSeparator}
-                            renderItem={({item, index}) => (
-                                <RowItem onSelect={() => {
-                                    this.props.navigation.navigate("CartScreen")
-                                }}/>
-                            )}
+                                    />
+                                </Tab>
+                            );
+                        })
+                    }
 
-                        />
-                    </Tab>
-                    <Tab
-                        heading="Tos & Tunics"
-                        tabStyle={styles.tabStyle}
-                        activeTabStyle={styles.activeTabStyle}
-                        activeTextStyle={styles.activeTextStyle}
-                        textStyle={styles.textStyle}
-                    >
-                        <FlatList
-                            style={{paddingVertical: 15, backgroundColor: '#EAECEC'}}
-                            data={data}
-                            showsHorizontalScrollIndicator={false}
-                            showsVerticalScrollIndicator={false}
-                            ItemSeparatorComponent={this.FlatListItemSeparator}
-                            renderItem={({item, index}) => (
-                                <RowItem onSelect={() => {
-                                    this.props.navigation.navigate("CartScreen")
-                                }}/>
-                            )}
-
-                        />
-                    </Tab>
 
                 </Tabs>
 
             </Container>
 
-        )
+        );
     }
 }
 
-export default ProductlistScreen;
+const mapActionCreators = {addItemtoCart,  toast,};
+
+const mapStateToProps = state => {
+    return {
+        products: _.chain(state.global.products)
+            .groupBy('category')
+            .map((value, key) => ({category: key, products: value}))
+            .value(),
+    };
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapActionCreators,
+)(ProductlistScreen);
+

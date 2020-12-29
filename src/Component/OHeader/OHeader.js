@@ -1,17 +1,15 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import styles from './OHeaderStyle';
-import {connect} from 'react-redux';
-import {arrowback, menu, home, cart} from 'src/assets'
+import {arrowback, cart,list} from 'src/assets';
 import TextView from '../TextView/TextView';
-import {color} from "src/Theme";
 import {Header} from 'react-native-elements';
 
 class MainHeader extends React.Component {
 
 
     render() {
-        const {titleCenter, navigation} = this.props;
+        const {titleCenter, navigation, product} = this.props;
         return (
             <Header
                 backgroundColor="#F12761"
@@ -25,9 +23,12 @@ class MainHeader extends React.Component {
                 centerComponent={<TextView style={styles.titleTxt}>{titleCenter}</TextView>}
                 containerStyle={styles.headerCont}
                 rightComponent={<TouchableOpacity onPress={() => {
-                    navigation && navigation.navigate("CartScreen")
+                    if(product)
+                    navigation && navigation.navigate('ProductlistScreen');
+                    else
+                    navigation && navigation.navigate('CartScreen');
                 }}>
-                    <Image source={cart} style={styles.menuImg}
+                    <Image source={product?list:cart} style={styles.menuImg}
                     />
                 </TouchableOpacity>}
             >

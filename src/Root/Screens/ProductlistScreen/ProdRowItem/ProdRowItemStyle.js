@@ -1,6 +1,7 @@
-import { StyleSheet } from 'react-native';
-import {PixcelWidth} from "src/Utils";
-import { color, font } from 'src/Theme';
+import {StyleSheet} from 'react-native';
+import {PixcelWidth} from 'src/Utils';
+import {color, font} from 'src/Theme';
+
 const styles = StyleSheet.create({
     prodCont: {
         flex: 1,
@@ -11,14 +12,14 @@ const styles = StyleSheet.create({
     },
     imgCont: {
         height: PixcelWidth(120),
-        width:PixcelWidth(100),
+        width: PixcelWidth(100),
         borderRadius: 5,
-        overflow:'hidden',
+        overflow: 'hidden',
         //backgroundColor: 'red',
     },
     prodDetails: {
         flex: 1,
-        marginTop:PixcelWidth(5),
+        marginTop: PixcelWidth(5),
         marginLeft: PixcelWidth(20),
         //width: '50%'
     },
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     proQtyTxt: {
         //fontFamily: font.poppinsMedium,
         fontSize: PixcelWidth(16),
-        color: '#BABABA'
+        color: '#BABABA',
     },
     additemCont: {
         flex: 1,
@@ -73,16 +74,17 @@ const styles = StyleSheet.create({
         //fontFamily: font.poppinsSemibold,
     },
     prodPriceTxt1: {
-        marginTop:PixcelWidth(2),
+        marginTop: PixcelWidth(2),
         marginLeft: PixcelWidth(8),
         fontSize: PixcelWidth(12),
         color: '#ada9a8',
         //fontFamily: font.poppinsSemibold,
     },
     colseBtn: {
-        //marginTop: -7,
+        padding: 10,
         width: 16,
         height: 16, alignSelf: 'flex-end',
+        tintColor: 'red',
     },
 });
 export default styles;

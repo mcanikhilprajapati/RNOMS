@@ -1,32 +1,28 @@
-import React, { Component } from 'react'
-import {Text, TouchableOpacity, View,TextInput, StyleSheet, FlatList, Image} from 'react-native';
-import { Icon } from 'react-native-elements';
-import { Container, Content, Tab, Footer, ScrollableTab } from 'native-base';
+import React, {Component} from 'react';
+import {FlatList, TextInput, TouchableOpacity, View} from 'react-native';
+import {Container, Content} from 'native-base';
 import styles from './CartScreenStyle';
-import {add,  people, minus,plus,shopping} from 'src/assets'
-import {TextView,OHeader} from 'src/Component';
-import RowItem from "./CartRowItem";
-const data = [{id:1},{id:2},{id:3}]
+import {OHeader, TextView} from 'src/Component';
+import RowItem from './CartRowItem';
+import {connect} from 'react-redux';
+import {createSelector} from 'reselect';
+import {removeProductByID} from 'src/store/global'
+class CartScreen extends Component {
 
-export class CartScreen extends Component {
-
-    constructor() {
-        super()
-        this.state = {}
-    }
     FlatListItemSeparator = () => {
         return (
-            //Item Separator
-            <View style={{ height: 10, }} />
+            <View style={{height: 10}}/>
         );
     };
+
     render() {
+
 
         return (
             <Container>
                 <OHeader
                     navigation={this.props.navigation}
-                    titleCenter={"Cart"}
+                    titleCenter={'Cart'}
                 />
                 <Content style={styles.container}
                          showsHorizontalScrollIndicator={false}
@@ -37,38 +33,57 @@ export class CartScreen extends Component {
                         <TextInput
                             placeholder="Coupon Number"
                             style={styles.couponInput}
-                            placeholderStyle={{marginLeft:5, }}
-                            />
-                            <TouchableOpacity style={styles.applyBtn}>
-                                <TextView style={styles.applyBtnTxt}>Apply</TextView>
-                            </TouchableOpacity>
+                            placeholderStyle={{marginLeft: 5}}
+                        />
+                        <TouchableOpacity style={styles.applyBtn}>
+                            <TextView style={styles.applyBtnTxt}>Apply</TextView>
+                        </TouchableOpacity>
                     </View>
-                <FlatList
-                    style={{ marginTop:10, }}
-                    data={data}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    //ItemSeparatorComponent={this.FlatListItemSeparator}
-                    renderItem={({ item, index }) => (
-                        <RowItem/>
-                    )}
+                    <FlatList
+                        style={{marginTop: 10}}
+                        data={this.props.cart}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({item, index}) => (
+                            <RowItem item={item} onRemove={(item) => {
+                               this.props.removeProductByID(item)
+                            }}/>
+                        )}
 
-                />
-                <View style={styles.totalCont}>
-                    <TextView style={styles.subTotalTxt}>Subtotal</TextView>
-                    <TextView style={[styles.subTotalTxt,{marginLeft:15}]}>2,456</TextView>
-                </View>
+                    />
 
                 </Content>
                 <View style={styles.bottomCont}>
-                    <TextView style={styles.bottomTxt} numberOfline={2}>Do you want to play for the goods?</TextView>
+                    <TextView
+                        style={[styles.subTotalTxt, {margin: 10}]}>Subtotal ${this.props.total}</TextView>
+                    <TextView style={styles.bottomTxt} numberOfline={2}>Do you want to pay for the goods?</TextView>
                     <TouchableOpacity style={styles.chkoutBtn}>
                         <TextView style={styles.chkoutBtnTxt}>CheckOut</TextView>
                     </TouchableOpacity>
                 </View>
             </Container>
-        )
+        );
     }
 }
 
-export default CartScreen;
+
+const mapActionCreators = {removeProductByID};
+
+const mapStateToProps = state => {
+    const shopItemsSelector = state => state.global.cart;
+    const subtotalSelector = createSelector(
+        shopItemsSelector,
+        cart => cart.reduce((oprice, item) => oprice + (Number(item.oprice) * Number(item.qty)), 0),
+    );
+    return {
+        cart: state.global.cart,
+        total: subtotalSelector(state),
+    };
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapActionCreators,
+)(CartScreen);
+

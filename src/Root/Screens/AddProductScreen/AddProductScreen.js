@@ -1,89 +1,173 @@
 import React, {Component} from 'react';
 import styles from './AddProductScreenStyle';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {Input} from "react-native-elements";
-import {Container, Content} from 'native-base'
+import {Input} from 'react-native-elements';
+import {Container, Content, Picker, Footer} from 'native-base';
 import {OHeader} from 'src/Component';
-import {Picker } from 'native-base';
-import {toast} from 'src/store/global'
+import {toast, addProduct} from 'src/store/global';
 import {connect} from 'react-redux';
+
 class AddProductScreen extends Component {
+    constructor(props) {
+        super();
+        this.state = {
+            category: '',
+            pname: '',
+            desc: '',
+            oprice: null,
+            dprice: null,
+            qty:null
+        };
+    }
+
+    onValueChange(value: string) {
+        this.setState({
+            category: value,
+        });
+    }
+
+    onSubmit() {
+        const {pname, desc, oprice, dprice, category,qty} = this.state;
+        if (pname == '') {
+            this.props.toast(true, 'Please Type Product Name');
+            return;
+        }
+        if (desc == '') {
+            this.props.toast(true, 'Please Type Product Desc');
+            return;
+        }
+        if (oprice == '') {
+            this.props.toast(true, 'Please Type Product Price');
+            return;
+        }
+        if (dprice == null) {
+            this.props.toast(true, 'Please Type Product Discount Price');
+            return;
+        }
+        if (category == null) {
+            this.props.toast(true, 'Please Select Category');
+            return;
+        }if (qty == null) {
+            this.props.toast(true, 'Please Select Qty');
+            return;
+        }
+
+        let product = {
+            pname, desc, oprice, dprice, category,qty
+        };
+
+        this.props.addProduct(product);
+        this.props.toast(false, 'Product Added');
+       // this.reset();
+    }
+
+    reset() {
+        this.setState({
+            category: '',
+            pname: '',
+            desc: '',
+            oprice: null,
+            dprice: null,
+        });
+    }
 
     render() {
+        const {pname, desc, oprice, dprice,qty} = this.state;
         return (
             <Container>
                 <OHeader
-                    titleCenter={"Add Product"}
+                    titleCenter={'Add Product'}
                     navigation={this.props.navigation}
+                    product
                 />
 
 
                 <Content showsHorizontalScrollIndicator={false}
                          showsVerticalScrollIndicator={false}>
-                    <View style={styles.innerContainer}>
-                        <Input
-                            placeholder='Product Name'
-                            inputContainerStyle={[styles.inputBox, {marginTop: 10}]}
-                        />
-                        <Input
-                            placeholder='Small Description'
-                            inputContainerStyle={styles.inputBox}
-                        />
-                        <Input
-                            placeholder='Original Price'
-                            inputContainerStyle={styles.inputBox}
-                        />
-                        <Input
-                            placeholder='Discounted Price'
-                            inputContainerStyle={styles.inputBox}
-                        />
 
-                        <View style={styles.imgCont}>
-                            <Image style={styles.prodImg}/>
-                            <TouchableOpacity style={styles.browseBtn}>
-                                <Text style={styles.browseBtnTxt}>Browse</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.pickerStyle}>
-                            <Picker
-                                mode="dropdown"
-                                placeholder={"select"}
-                                style={styles.pickerTxt}
-                                itemStyle={styles.pickerTxt}
-                                // selectedValue={this.state.selected}
-                                // onValueChange={this.onValueChange.bind(this)}
-                            >
-                                <Picker.Item label="Category1"/>
-                                <Picker.Item label="Category2"/>
-                                <Picker.Item label="Category3"/>
-                                <Picker.Item label="Category"/>
-                            </Picker>
-                        </View>
-
-                        <TouchableOpacity style={styles.button}
-                                          onPress={() => this.props.toast(false,"New Product Added")}
-                        >
-                            <Text style={styles.btnText}>Submit</Text>
+                    <View style={styles.imgCont}>
+                        <Image style={styles.prodImg}/>
+                        <TouchableOpacity style={styles.browseBtn}>
+                            <Text style={styles.browseBtnTxt}>Browse</Text>
                         </TouchableOpacity>
                     </View>
+                    <Input
+                        value={pname}
+                        onChangeText={value => this.setState({pname: value})}
+                        placeholder='Product Name'
+                        inputContainerStyle={[styles.inputBox, {marginTop: 10}]}
+                    />
+                    <Input
+                        value={desc}
+                        onChangeText={value => this.setState({desc: value})}
+                        placeholder='Small Description'
+                        inputContainerStyle={styles.inputBox}
+                    />
+                    <Input
+                        returnKeyType={'next'}
+                        keyboardType="numeric"
+                        value={oprice}
+                        onChangeText={value => this.setState({oprice: value})}
+                        placeholder='Original Price'
+                        inputContainerStyle={styles.inputBox}
+                    />
+                    <Input
+                        returnKeyType={'next'}
+                        keyboardType="numeric"
+                        value={dprice}
+                        onChangeText={value => this.setState({dprice: value})}
+                        placeholder='Discounted Price'
+                        inputContainerStyle={styles.inputBox}
+                    /><Input
+                        returnKeyType={'next'}
+                        keyboardType="numeric"
+                        value={qty}
+                        onChangeText={value => this.setState({qty: value})}
+                        placeholder='qty'
+                        inputContainerStyle={styles.inputBox}
+                    />
+
+
+                    <View style={styles.pickerStyle}>
+                        <Picker
+                            placeholder={'select'}
+                            style={styles.pickerTxt}
+                            itemStyle={styles.pickerTxt}
+                            selectedValue={this.state.category}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="Category1" value={'Category1'}/>
+                            <Picker.Item label="Category2" value={'Category2'}/>
+                            <Picker.Item label="Category3" value={'Category3'}/>
+                            <Picker.Item label="Category4" value={'Category4'}/>
+                        </Picker>
+                    </View>
+
+
                 </Content>
 
-
+                <Footer>
+                    <TouchableOpacity style={styles.button}
+                                      onPress={() => {
+                                          this.onSubmit();
+                                      }}
+                    >
+                        <Text style={styles.btnText}>Submit</Text>
+                    </TouchableOpacity>
+                </Footer>
             </Container>
         );
     }
 }
 
 
-
 const mapActionCreators = {
-    toast
+    toast,
+    addProduct,
 };
 
 const mapStateToProps = state => {
-    return {
-
-    };
+    return {};
 };
 
 

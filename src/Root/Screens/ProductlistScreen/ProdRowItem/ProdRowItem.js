@@ -9,19 +9,17 @@ const RowItem = props => {
 
     return (
         <TouchableOpacity
-            onPress={() => {
-                props.onSelect && props.onSelect();
-            }}
+
             style={styles.prodCont}>
             <Image style={styles.imgCont}
                    source={people}
                    resizeMode={'stretch'}/>
             <View style={styles.prodDetails}>
-                <TextView style={styles.proTitleTxt}>Catbird Black</TextView>
-                <TextView style={styles.proQtyTxt}>Ankle Length Bootie</TextView>
+                <TextView style={styles.proTitleTxt}>{props.item.pname}</TextView>
+                <TextView style={styles.proQtyTxt}>{props.item.desc}</TextView>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TextView style={styles.prodPriceTxt}>$47.00</TextView>
-                    <TextView style={styles.prodPriceTxt1}>$47.00</TextView>
+                    <TextView style={styles.prodPriceTxt}>${props.item.oprice}</TextView>
+                    <TextView style={styles.prodPriceTxt1}>${props.item.dprice}</TextView>
                 </View>
                 <View style={{flexDirection: 'row', marginTop: 5}}>
                     <View style={styles.additemCont}>
@@ -32,7 +30,7 @@ const RowItem = props => {
                                 resizeMode={'contain'}
                             />
                         </TouchableOpacity>
-                        <TextView style={[styles.addCartTxt, {marginHorizontal: 15}]}>1</TextView>
+                        <TextView style={[styles.addCartTxt, {marginHorizontal: 15}]}>{props.item.qty}</TextView>
                         <TouchableOpacity style={styles.addBtn}>
                             <Image
                                 style={styles.plusBtn}
@@ -44,14 +42,16 @@ const RowItem = props => {
                 </View>
             </View>
             <View style={{justifyContent: 'space-between'}}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    props.onSelect && props.onSelect(props.item);
+                }}>
                     <Image
                         source={add}
                         resizeMode={'contain'}
                         style={styles.colseBtn}
                     />
                 </TouchableOpacity>
-                {/* <TextView style={styles.prodPriceTxt}>Rs.{item.price?.product_price}</TextView> */}
+
 
             </View>
         </TouchableOpacity>
