@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import styles from './AddProductScreenStyle';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View,Picker} from 'react-native';
 import {Input} from 'react-native-elements';
-import {Container, Content, Picker, Footer} from 'native-base';
+import {Container, Content, Footer} from 'native-base';
 import {OHeader} from 'src/Component';
 import {toast, addProduct} from 'src/store/global';
 import {connect} from 'react-redux';
